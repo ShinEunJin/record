@@ -1,0 +1,46 @@
+1. type '{ videoName: true; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'videoName' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.ts(2322)
+
+  children에러다. 하위 컴포넌트에 props를 전달할때 그 하위 컴포넌트에서 props를 정의해줘야한다.
+
+    <div className="ct">
+        <h1>즉시환전 서비스 이용방법</h1>
+        <VideoPlay videoName={"Exchange"} />
+    </div>
+
+    그리고 하위 컴포넌트인 VideoPlay.tsx 에서
+    interface ParamProps {
+        videoName: string;
+    }
+
+    이렇게 정의해줘야지 위 에러가 없어진다.
+
+  // 210916
+  알고보니 진짜 기본적인 문제였다. 
+  
+  interface Props {
+    example: string
+  }
+
+  const ExampleType: React.FC<Props> = () => ~
+
+  하위 컴포넌트 props 설정 해주는거다. 참고로 React.FC<Props> = React.FC<{ example: string }> 이거랑 같다.
+
+
+2. any vs void // 210916
+
+  any는 어떤값도 좋다는거 void는 함수랑 같이 쓰이고 어떤 값도 리턴하지 않는다는 거다.
+
+  interface Example {
+    examFn: () => void
+  }
+
+  const examFn = () => { console.log("example") }  <-- console.log만 보여주지 return 해주는건 없다.
+
+
+3. props에 해당하는 요소 중에 필수가 아니라 선택사항 으로 쓰고 싶을때는 ?를 붙이면 된다.
+
+  interface ExampleProps {
+    example?: string  
+  }
+  

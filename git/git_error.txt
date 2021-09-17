@@ -1,0 +1,7 @@
+1. git pull error
+
+git stash로 현재 디렉토리 임시 백업 (에러걸리기 전 최근 코드를 저장한다은 말)
+
+git pull origin master 내 로컬로 pull해주고
+
+git stash pop 임시로 백업시켜놨던 깃들 제거
